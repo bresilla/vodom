@@ -1,6 +1,11 @@
 [
 {
   "directory": "/doc/code/LEARN/vodom",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-Iinclude", "-isystem", "/usr/include/opencv4", "-isystem", "/usr/include/eigen3", "-isystem", "/usr/include/python3.10", "-isystem", "/usr/include/X11/dri", "-isystem", "/pkg/xmake/.xmake/packages/g/glad/v0.1.36/dd6f7de88060486a93ea896ea2b462ea/include", "-DNDEBUG", "-o", "build/.objs/run/linux/x86_64/release/src/main.cpp.o", "src/main.cpp"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-Iinclude", "-DSPDLOG_SHARED_LIB", "-DSPDLOG_COMPILED_LIB", "-DSPDLOG_FMT_EXTERNAL", "-isystem", "/usr/include/opencv4", "-isystem", "/usr/include/eigen3", "-isystem", "/usr/include/python3.10", "-isystem", "/usr/include/X11/dri", "-isystem", "/pkg/xmake/.xmake/packages/g/glad/v0.1.36/dd6f7de88060486a93ea896ea2b462ea/include", "-isystem", "/pkg/xmake/.xmake/packages/s/stb/2023.01.30/49ce4a7c588e45939363ab41edbf4c09/include", "-isystem", "/pkg/xmake/.xmake/packages/s/stb/2023.01.30/49ce4a7c588e45939363ab41edbf4c09/include/stb", "-DNDEBUG", "-o", "build/.objs/run/linux/x86_64/release/src/main.cpp.o", "src/main.cpp"],
   "file": "src/main.cpp"
+},
+{
+  "directory": "/doc/code/LEARN/vodom",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-Iinclude", "-DSPDLOG_SHARED_LIB", "-DSPDLOG_COMPILED_LIB", "-DSPDLOG_FMT_EXTERNAL", "-isystem", "/usr/include/opencv4", "-isystem", "/usr/include/eigen3", "-isystem", "/usr/include/python3.10", "-isystem", "/usr/include/X11/dri", "-isystem", "/pkg/xmake/.xmake/packages/g/glad/v0.1.36/dd6f7de88060486a93ea896ea2b462ea/include", "-isystem", "/pkg/xmake/.xmake/packages/s/stb/2023.01.30/49ce4a7c588e45939363ab41edbf4c09/include", "-isystem", "/pkg/xmake/.xmake/packages/s/stb/2023.01.30/49ce4a7c588e45939363ab41edbf4c09/include/stb", "-DNDEBUG", "-o", "build/.objs/run/linux/x86_64/release/src/utils.cpp.o", "src/utils.cpp"],
+  "file": "src/utils.cpp"
 }]
