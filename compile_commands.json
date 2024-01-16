@@ -1,6 +1,6 @@
 [
 {
   "directory": "/doc/code/LEARN/vodom",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-Iinclude", "-I", "/usr/include/opencv4", "-DNDEBUG", "-o", "build/.objs/run/linux/x86_64/release/src/main.cpp.o", "src/main.cpp"],
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-Iinclude", "-I", "/usr/include/opencv4", "-I", "/usr/include/eigen3", "-I", "/usr/include/python3.10", "-I", "/usr/include/X11/dri", "-I", "/pkg/xmake/.xmake/packages/g/glad/v0.1.36/dd6f7de88060486a93ea896ea2b462ea/include", "-DNDEBUG", "-o", "build/.objs/run/linux/x86_64/release/src/main.cpp.o", "src/main.cpp"],
   "file": "src/main.cpp"
 }]
