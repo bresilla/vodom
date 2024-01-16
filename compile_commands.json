@@ -1,0 +1,6 @@
+[
+{
+  "directory": "/doc/code/LEARN/vodom",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-Iinclude", "-I", "/usr/include/opencv4", "-DNDEBUG", "-o", "build/.objs/run/linux/x86_64/release/src/main.cpp.o", "src/main.cpp"],
+  "file": "src/main.cpp"
+}]
