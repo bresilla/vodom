@@ -1,18 +1,26 @@
+#include "utils.hpp"
+
 #include <iostream>
+#include <filesystem>
+#include <fstream>
+
 #include <opencv2/opencv.hpp>
-#include "Eigen/Dense"
+#include <Eigen/Dense>
 #include <fmt/format.h>
 #include <spdlog/spdlog.h>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <stb/stb_image.h>
+
+
 
 namespace ei = Eigen;
-namespace msg = spdlog;
+namespace spd = spdlog;
 
 
 void glfw_error_callback(int error, const char* description){
-    msg::error("GLFW error: {}", description);
+    spd::error("GLFW error: {}", description);
 }
 
 void glfw_key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
@@ -20,15 +28,25 @@ void glfw_key_callback(GLFWwindow* window, int key, int scancode, int action, in
         glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
     // keycode in ASCII
-    msg::info("Key pressed: {}", (char)key);
+    if (action == GLFW_PRESS){
+        spd::info("Key pressed: {}", (char)key);
+    }
 }
 
 int main(){
+
+    std::string baseapth = "/doc/code/LEARN/vodom/dataset/rgbd_dataset_freiburg3_long_office_household/";
+
+    for(const auto& line: utl::get_image_paths(baseapth + "rgb")){
+        spd::info("timestamp: {}, path: {}", utl::timestring(line.second), line.first);
+    }
+
+
     if(!glfwInit()){
-        msg::error("Failed to initialize GLFW");
+        spd::error("Failed to initialize GLFW");
         return -1;
     }
-    msg::info("GLFW initialized");
+    spd::info("GLFW initialized");
     glfwSetErrorCallback(glfw_error_callback);
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -36,11 +54,11 @@ int main(){
 
     GLFWwindow* window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
     if(!window){
-        msg::error("Failed to create GLFW window");
+        spd::error("Failed to create GLFW window");
         glfwTerminate();
         return -1;
     }
-    msg::info("GLFW window created");
+    spd::info("GLFW window created");
 
     glfwMakeContextCurrent(window);
     gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
@@ -49,6 +67,9 @@ int main(){
     glfwSwapInterval(1);
 
     while(!glfwWindowShouldClose(window)){
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
