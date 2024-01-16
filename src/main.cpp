@@ -37,8 +37,11 @@ int main(){
 
     std::string baseapth = "/doc/code/LEARN/vodom/dataset/rgbd_dataset_freiburg3_long_office_household/";
 
-    for(const auto& line: utl::get_image_paths(baseapth + "rgb")){
-        spd::info("timestamp: {}, path: {}", utl::timestring(line.second), line.first);
+    utl::ImageLoader loader = utl::ImageLoader(baseapth + "rgb/");
+
+    for(const auto& img : loader){
+        cv::imshow("image", img);
+        cv::waitKey(1);
     }
 
 

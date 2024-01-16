@@ -54,4 +54,80 @@ namespace utl {
         });
         return paths;
     }
+
+    ImageLoader::ImageLoader(const std::string& file_path_string){
+        paths = get_image_paths(file_path_string);
+        index_ = 0;
+    }
+
+    cv::Mat ImageLoader::next(){
+        return _get(index_++);
+    }
+
+    void ImageLoader::reset(){
+        index_ = 0;
+    }
+
+    int ImageLoader::_len(){
+        return paths.size();
+    }
+
+    std::string ImageLoader::path(){
+        return paths[index_].first;
+    }
+
+    cv::Mat ImageLoader::_get(int index){
+        if(index < 0 || index >= _len()){
+            spd::error("Index out of range: {}", index);
+            return cv::Mat();
+        }
+        
+        fs::path image_path = paths[index].first;
+        if(!fs::exists(image_path)){
+            spd::error("Path does not exist: {}", image_path.string());
+            return cv::Mat();
+        }
+
+        if(!fs::is_regular_file(image_path)){
+            spd::error("Path is not a regular file: {}", image_path.string());
+            return cv::Mat();
+        }
+
+        if(image_path.extension() != ".png"){
+            spd::error("Path is not a png file: {}", image_path.string());
+            return cv::Mat();
+        }
+        
+        cv::Mat image = cv::imread(image_path.string(), cv::IMREAD_UNCHANGED);
+        if(image.empty()){
+            spd::error("Failed to read image: {}", image_path.string());
+            return cv::Mat();
+        }
+        return image;
+    }
+
+    ImageLoader::Iterator::Iterator(ImageLoader* loader, int index){
+        loader_ = loader;
+        index_ = index;
+    }
+
+    ImageLoader::Iterator& ImageLoader::Iterator::operator++(){
+        index_++;
+        return *this;
+    }
+
+    cv::Mat ImageLoader::Iterator::operator*() const{
+        return loader_->_get(index_);
+    }
+
+    bool ImageLoader::Iterator::operator!=(const Iterator& other) const{
+        return index_ != other.index_;
+    }
+
+    bool ImageLoader::Iterator::operator==(const Iterator& other) const{
+        return index_ == other.index_;
+    }
+
+
+    
 } // namespace utl
