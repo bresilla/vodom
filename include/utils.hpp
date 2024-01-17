@@ -19,6 +19,7 @@ namespace utl {
             int len();
             void reset();
             std::string info();
+            int indexy(){ return index_;}
 
             class Iterator : public std::iterator<std::input_iterator_tag, cv::Mat> {
                 public:
@@ -41,7 +42,7 @@ namespace utl {
             friend class Iterator;
             Iterator* iterator_;
             cv::Mat _get(int index);
-            std::vector<std::pair<std::string, long long>> paths;
+            std::vector<std::string> paths;
             int index_ = 0;
     };
 

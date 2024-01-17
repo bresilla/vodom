@@ -17,24 +17,12 @@ namespace fs = std::filesystem;
 
 namespace utl {
     std::string timestring(long long timestamp){
-        std::time_t t = timestamp;
-        std::tm* tm = std::localtime(&t);
-        char buf[32];
-        std::strftime(buf, 32, "%Y-%m-%d %H:%M:%S", tm);
-        return std::string(buf);
+        std::string timestring = fmt::format("{:010d}", timestamp);
+        return timestring;
     }
 
-    std::vector<std::pair<std::string, long long>> get_image_paths(const std::string& file_path_string){
-        std::vector<std::pair<std::string, long long>> paths;
-        fs::path file_path = file_path_string;
-        if(!fs::exists(file_path)){
-            spd::error("Path does not exist: {}", file_path_string);
-            return paths;
-        }
-        if(!fs::is_directory(file_path)){
-            spd::error("Path is not a directory: {}", file_path_string);
-            return paths;
-        }
+    std::vector<std::string> get_paths_from_dir(fs::path file_path){
+        std::vector<std::string> paths;
         for(const auto& entry : fs::directory_iterator(file_path)){
             if(!fs::is_regular_file(entry)){
                 spd::warn("Skipping non-regular file: {}", entry.path().string());
@@ -44,19 +32,36 @@ namespace utl {
                 spd::warn("Skipping non-png file: {}", entry.path().string());
                 continue;
             }
-            std::string filename = entry.path().filename().string();
-            std::string timestamp_string = filename.substr(0, filename.find("."));
-            long long timestamp = std::stoll(timestamp_string);
-            paths.push_back(std::make_pair(entry.path().string(), timestamp));
+            paths.push_back(entry.path().string());
         }
         std::sort(paths.begin(), paths.end(), [](const auto& a, const auto& b){
-            return a.first < b.first;
+            return a < b;
         });
         return paths;
     }
 
+    std::vector<std::string> get_paths_from_txt(fs::path file_path){
+        spd::error("Not implemented");
+    }
+
+    std::vector<std::string> get_paths(std::string file_path_string){
+        std::vector<std::string> paths;
+        fs::path file_path = file_path_string;
+        if(!fs::exists(file_path)){
+            spd::error("Path does not exist: {}", file_path_string);
+            return paths;
+        }
+        if(!fs::is_directory(file_path)){
+            spd::info("Getting paths from txt file: {}", file_path_string);
+            return get_paths_from_txt(file_path);
+        } else {
+            spd::info("Getting paths from directory: {}", file_path_string);
+            return get_paths_from_dir(file_path);
+        }
+    }
+
     ImageLoader::ImageLoader(const std::string& file_path_string){
-        paths = get_image_paths(file_path_string);
+        paths = get_paths(file_path_string);
         index_ = 0;
     }
 
@@ -69,10 +74,15 @@ namespace utl {
             spd::error("No more images");
             return cv::Mat();
         }
-        return _get(index_++);
+        index_++;
+        return _get(index_ - 1);
     }
 
     cv::Mat ImageLoader::curr(){
+        if(index_ == 0){
+            spd::error("No current image, please call next() first");
+            return cv::Mat();
+        }
         return _get(index_);
     }
 
@@ -86,7 +96,7 @@ namespace utl {
     }
 
     std::string ImageLoader::info(){
-        return fmt::format("timestamp: {}, path: {}", paths[index_].second, paths[index_].first);
+        return fmt::format("path: {}", paths[index_]);
     }
 
     cv::Mat ImageLoader::_get(int index){
@@ -95,7 +105,7 @@ namespace utl {
             return cv::Mat();
         }
         
-        fs::path image_path = paths[index].first;
+        fs::path image_path = paths[index];
         if(!fs::exists(image_path)){
             spd::error("Path does not exist: {}", image_path.string());
             return cv::Mat();
