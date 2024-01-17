@@ -50,7 +50,7 @@ namespace utl {
             paths.push_back(std::make_pair(entry.path().string(), timestamp));
         }
         std::sort(paths.begin(), paths.end(), [](const auto& a, const auto& b){
-            return a.second < b.second;
+            return a.first < b.first;
         });
         return paths;
     }
@@ -60,24 +60,37 @@ namespace utl {
         index_ = 0;
     }
 
+    bool ImageLoader::has_next(){
+        return index_ < len();
+    }
+
     cv::Mat ImageLoader::next(){
+        if(!has_next()){
+            spd::error("No more images");
+            return cv::Mat();
+        }
         return _get(index_++);
+    }
+
+    cv::Mat ImageLoader::curr(){
+        return _get(index_);
     }
 
     void ImageLoader::reset(){
         index_ = 0;
+        iterator_->index_ = index_;
     }
 
-    int ImageLoader::_len(){
+    int ImageLoader::len(){
         return paths.size();
     }
 
-    std::string ImageLoader::path(){
-        return paths[index_].first;
+    std::string ImageLoader::info(){
+        return fmt::format("timestamp: {}, path: {}", paths[index_].second, paths[index_].first);
     }
 
     cv::Mat ImageLoader::_get(int index){
-        if(index < 0 || index >= _len()){
+        if(index < 0 || index >= len()){
             spd::error("Index out of range: {}", index);
             return cv::Mat();
         }
@@ -113,6 +126,7 @@ namespace utl {
 
     ImageLoader::Iterator& ImageLoader::Iterator::operator++(){
         index_++;
+        loader_->index_ = index_;
         return *this;
     }
 
@@ -128,6 +142,10 @@ namespace utl {
         return index_ == other.index_;
     }
 
+    void ImageLoader::Iterator::reset(){
+        index_ = 0;
+        loader_->index_ = index_;
+    }
 
     
 } // namespace utl

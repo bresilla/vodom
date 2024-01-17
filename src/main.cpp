@@ -34,17 +34,6 @@ void glfw_key_callback(GLFWwindow* window, int key, int scancode, int action, in
 }
 
 int main(){
-
-    std::string baseapth = "/doc/code/LEARN/vodom/dataset/rgbd_dataset_freiburg3_long_office_household/";
-
-    utl::ImageLoader loader = utl::ImageLoader(baseapth + "rgb/");
-
-    for(const auto& img : loader){
-        cv::imshow("image", img);
-        cv::waitKey(1);
-    }
-
-
     if(!glfwInit()){
         spd::error("Failed to initialize GLFW");
         return -1;
@@ -68,6 +57,64 @@ int main(){
 
     glfwSetKeyCallback(window, glfw_key_callback);
     glfwSwapInterval(1);
+
+
+    utl::ImageLoader loader = utl::ImageLoader("/doc/code/LEARN/vodom/dataset/rgbd_dataset_freiburg3_long_office_household/rgb/");
+    cv::Mat img = loader.next();
+
+
+    float vertices[] = {
+        0.5f, 0.5f, 0.0f, 1.0f, 1.0f,
+        0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+        -0.5f, 0.5f, 0.0f, 0.0f, 1.0f
+    };
+
+    unsigned int indices[] = {
+        0, 1, 3,
+        1, 2, 3
+    };
+
+    unsigned int vao, vbo, ebo;
+
+    glGenBuffers(1, &vbo);
+    glGenBuffers(1, &ebo);
+    glGenVertexArrays(1, &vao);
+
+    glBindVertexArray(vao);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5*sizeof(float), reinterpret_cast<void*>(0));
+    glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5*sizeof(float), reinterpret_cast<void*>(3*sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    const char* vertex_shader_source = R"GLSL(
+        #version 330 core
+        layout (location = 0) in vec3 vs_pos;
+        layout (location = 1) in vec2 vs_uv;
+        out vec2 uv;
+        void main(){
+            gl_Position = vec4(vs_pos, 1.0);
+            uv  = vs_uv;
+        }
+    )GLSL";
+
+    const char* image_fs_source = R"GLSL(
+        #version 330 core
+        out vec4 fragment_color;
+        in vec2 uv;
+        void main(){
+            fragment_color = vec4(1.0, 0.0, 0.0, 1.0);
+        }
+    )GLSL";
+
 
     while(!glfwWindowShouldClose(window)){
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);

@@ -14,29 +14,35 @@ namespace utl {
         public:
             ImageLoader(const std::string& file_path_string);
             cv::Mat next();
+            cv::Mat curr();
+            bool has_next();
+            int len();
             void reset();
-            std::string path();
+            std::string info();
 
             class Iterator : public std::iterator<std::input_iterator_tag, cv::Mat> {
                 public:
                     explicit Iterator(ImageLoader* loader, int index);
+                    void reset();
                     Iterator& operator++();
                     cv::Mat operator*() const;
                     bool operator!=(const Iterator& other) const;
                     bool operator==(const Iterator& other) const;
                 private:
+                    friend class ImageLoader;
                     ImageLoader* loader_;
-                    int index_;
+                    int index_ = loader_->index_;
             };
 
-            Iterator begin() { return Iterator(this, 0); }
-            Iterator end() { return Iterator(this, _len()); }
+            Iterator begin() { return Iterator(this, this->index_); }
+            Iterator end() { return Iterator(this, len()); }
         
         private:
-            int _len();
+            friend class Iterator;
+            Iterator* iterator_;
             cv::Mat _get(int index);
             std::vector<std::pair<std::string, long long>> paths;
-            int index_;
+            int index_ = 0;
     };
 
 }
