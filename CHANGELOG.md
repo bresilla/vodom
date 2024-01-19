@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.1.3] - 2024-01-19
+## [0.1.4] - 2024-01-19
 
 ### <!-- 0 -->⛰️  Features
 
@@ -22,6 +22,7 @@
 
 ### <!-- 7 -->⚙️ Miscellaneous Tasks
 
+- Update version number and dependencies
 - Update version number and add project documentation and configuration files
 
 <!-- BRESILLA -->
