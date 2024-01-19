@@ -11,7 +11,7 @@ The implementation is in C++ and follows the book [Introduction to Visual SLAM F
 
 ## Install
 
-Code from the book be found on [GitHub](https://github.com/gaoxiang12/slambook-en)
+Code from the book be found on [GitHub](https://github.com/gaoxiang12)
 
 
 ### Dependencies
