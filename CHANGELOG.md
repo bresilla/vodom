@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.1.2] - 2024-01-19
+## [0.1.3] - 2024-01-19
 
 ### <!-- 0 -->⛰️  Features
 
@@ -19,5 +19,9 @@
 ### <!-- 3 -->📚 Documentation
 
 - Add essential project documentation and configuration files
+
+### <!-- 7 -->⚙️ Miscellaneous Tasks
+
+- Update version number and add project documentation and configuration files
 
 <!-- BRESILLA -->
