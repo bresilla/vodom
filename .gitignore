@@ -8,3 +8,4 @@ build/
 
 dataset
 OpenCV-RgbdOdometry
+.cache

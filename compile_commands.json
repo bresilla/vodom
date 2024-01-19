@@ -1,11 +1,11 @@
 [
 {
-  "directory": "/doc/code/LEARN/vodom",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-Iinclude", "-DSPDLOG_SHARED_LIB", "-DSPDLOG_COMPILED_LIB", "-DSPDLOG_FMT_EXTERNAL", "-I", "/usr/include/opencv4", "-I", "/usr/include/eigen3", "-DNDEBUG", "-o", "build/.objs/run/linux/x86_64/release/src/main.cpp.o", "src/main.cpp"],
+  "directory": "/doc/code/PROJECTS/vodom",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-Iinclude", "-I", "/usr/include/opencv4", "-I", "/pkg/xmake/.xmake/packages/e/eigen/3.4.0/c95d81810dbc45229e675130ada7d4c7/include", "-I", "/pkg/xmake/.xmake/packages/e/eigen/3.4.0/c95d81810dbc45229e675130ada7d4c7/include/eigen3", "-I", "/pkg/xmake/.xmake/packages/f/fmt/10.2.1/0327b556927c46fcabb4dbd6ed4fb632/include", "-I", "/pkg/xmake/.xmake/packages/s/spdlog/v1.13.0/cca5b628022e49229205fe5617e4245e/include", "-DNDEBUG", "-o", "build/.objs/run/linux/x86_64/release/src/main.cpp.o", "src/main.cpp"],
   "file": "src/main.cpp"
 },
 {
-  "directory": "/doc/code/LEARN/vodom",
-  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-Iinclude", "-DSPDLOG_SHARED_LIB", "-DSPDLOG_COMPILED_LIB", "-DSPDLOG_FMT_EXTERNAL", "-I", "/usr/include/opencv4", "-I", "/usr/include/eigen3", "-DNDEBUG", "-o", "build/.objs/run/linux/x86_64/release/src/utils.cpp.o", "src/utils.cpp"],
+  "directory": "/doc/code/PROJECTS/vodom",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++20", "-Iinclude", "-I", "/usr/include/opencv4", "-I", "/pkg/xmake/.xmake/packages/e/eigen/3.4.0/c95d81810dbc45229e675130ada7d4c7/include", "-I", "/pkg/xmake/.xmake/packages/e/eigen/3.4.0/c95d81810dbc45229e675130ada7d4c7/include/eigen3", "-I", "/pkg/xmake/.xmake/packages/f/fmt/10.2.1/0327b556927c46fcabb4dbd6ed4fb632/include", "-I", "/pkg/xmake/.xmake/packages/s/spdlog/v1.13.0/cca5b628022e49229205fe5617e4245e/include", "-DNDEBUG", "-o", "build/.objs/run/linux/x86_64/release/src/utils.cpp.o", "src/utils.cpp"],
   "file": "src/utils.cpp"
 }]
