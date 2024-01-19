@@ -1,5 +1,7 @@
 add_rules("mode.debug", "mode.release")
 
+set_version("0.1.1", {build = "%Y%m%d%H%M"})
+
 set_languages("c++20")
 -- add_requires("muslcc")
 -- set_toolchains("@muslcc")
