@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.1.1] - 2024-01-19
+## [0.1.2] - 2024-01-19
 
 ### <!-- 0 -->⛰️  Features
 
@@ -15,5 +15,9 @@
 
 - Refactor project file structure and configurations
 - Update file dependencies and remove unused code
+
+### <!-- 3 -->📚 Documentation
+
+- Add essential project documentation and configuration files
 
 <!-- BRESILLA -->
