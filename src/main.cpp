@@ -11,10 +11,10 @@
 namespace spd = spdlog;
 
 int main(){
-    utl::ImageLoader color = utl::ImageLoader("/doc/code/PROJECTS/vodom/dataset/rgb/");
-    for(const auto& img : color){
-        cv::imshow("img", img);
-        spd::info("{}", color.info());
+    utl::ImageLoader depth = utl::ImageLoader("/doc/code/PROJECTS/vodom/dataset/depth/");
+    for(const auto& img : depth){
+        cv::imshow("img", depth);
+        spd::info("{}", depth.info());
         
         auto key = cv::waitKey(1);
         if(key == 'q'){
