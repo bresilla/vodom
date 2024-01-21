@@ -1,7 +1,9 @@
 just:
-	xmake
-	xmake project -k compile_commands
-	xmake run
+    xmake
+    xmake project -k compile_commands
+    xmake project -k cmake
+    xmake package
+    xmake run
 
 build:
     xmake
